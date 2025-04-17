@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    image: sk963/fashionmart:latest
+    container_name: fashionmart-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mern-db
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+
+  frontend:
+    image: sk963/fashionmart-frontend:latest
+    container_name: fashionmart-frontend
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:6.0
+    container_name: fashionmart-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
